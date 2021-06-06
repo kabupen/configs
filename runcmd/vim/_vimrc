@@ -1,0 +1,135 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                    "
+"                      vimrc                         "
+"                                                    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" -------------------------------------------------------- " 
+" Vundle
+" -------------------------------------------------------- " 
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+" Git plugin not hosted on GitHub
+Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+" Plugin 'ascenator/L9', {'name': 'newL9'}
+"
+Plugin 'nathanaelkane/vim-indent-guides'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+
+" -------------------------------------------------------- " 
+" encoding 
+" -------------------------------------------------------- " 
+set fenc=utf-8 
+set encoding=utf-8 " encoding
+
+" Enable the file type depending indent configuration
+filetype plugin indent on
+let g:html_indent_inctags = "html,body,head,tbody"
+
+set clipboard+=unnamed,autoselect
+set backspace=indent,eol,start
+
+" color
+syntax on 
+
+" -------------------------------------------------------- " 
+" Indent
+" -------------------------------------------------------- " 
+set autoindent  
+set smartindent
+set smarttab
+set expandtab    " Tab文字を半角スペースにする
+set shiftwidth=2 " 行頭のTab文字の表示幅
+set tabstop=2    " 行頭以外のTab文字の表示幅
+
+" -------------------------------------------------------- " 
+" Preference
+" -------------------------------------------------------- " 
+set showmatch    " 対応する括弧を示す
+set laststatus=2 " ステータスを表示する
+set number       " 行番号 の表示
+set hlsearch     " 検索結果のハイライト
+
+" Highlight for the cursol line 
+" ctermbg : color of the high light
+set cursorline
+" hi CursorLine term=reverse cterm=none ctermbg=252
+
+
+" -------------------------------------------------------- " 
+" Python
+" -------------------------------------------------------- " 
+inoremap # X<C-H>#
+" python インデント設定
+augroup fileTypeIndent
+    autocmd!
+    autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4
+augroup END
+
+" -------------------------------------------------------- " 
+" Backup files
+" -------------------------------------------------------- " 
+set directory=~/.vimbackup/  " .swap file
+set backupdir=~/.vimbackup/  " .~ file
+set noundofile               " Stop to output the un~ file
+
+
+" -------------------------------------------------------- " 
+" Cursor
+" -------------------------------------------------------- " 
+augroup vimrcEx
+  au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
+  \ exe "normal g`\"" | endif
+augroup END
+
+
+
+" -------------------------------------------------------- " 
+" Latex syntax
+" -------------------------------------------------------- " 
+autocmd FileTYpe tex syntax region texRefZone matchgroup=texStatement
+      \ start="\\ref\(fig\|tab\|sec\|eqn\|chap\|alg\){"
+      \ end="}\|%stopzone\>"
+      \ contains=@texRefGroup
+
+
+" -------------------------------------------------------- " 
+" Plugin configs
+" -------------------------------------------------------- " 
+
+
+"""" Plugin 'nathanaelkane/vim-indent-guides'
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_color_change_percent = 0
+"let g:indent_guides_guide_size = 1
+"set ts=4 sw=4 et
+set background=dark " or light
+
+
